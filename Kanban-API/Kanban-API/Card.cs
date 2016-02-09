@@ -20,7 +20,7 @@ namespace Kanban_API
 
         }
 
-        public Card(CardModel model)
+        public Card(CardsModel model)
         {
             this.Update(model);
             CreatedDate = DateTime.Now;
@@ -30,13 +30,12 @@ namespace Kanban_API
         public int ListId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string Text { get; set; }
-
+    
         public virtual List List { get; set; }
 
-        public void Update(CardModel model)
+        public void Update(CardsModel card)
         {
-            ListId = model.ListId;
-            Text = model.Text;
+            Text = card.Text;
         }
     }
 }

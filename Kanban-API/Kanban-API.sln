@@ -7,6 +7,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanban-API", "Kanban-API\Ka
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanban-API.Tests", "Kanban-API.Tests\Kanban-API.Tests.csproj", "{28161F2F-1E2B-4348-9BB2-A18BC220168A}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Kanban.Web", "..\Kanban.Web\", "{77789BE8-D49F-4075-B6F1-7373E3D6D60B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_51007"
+		Debug.AspNetCompiler.PhysicalPath = "..\Kanban.Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51007\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_51007"
+		Release.AspNetCompiler.PhysicalPath = "..\Kanban.Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51007\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "51007"
+		SlnRelativePath = "..\Kanban.Web\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +43,10 @@ Global
 		{28161F2F-1E2B-4348-9BB2-A18BC220168A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28161F2F-1E2B-4348-9BB2-A18BC220168A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28161F2F-1E2B-4348-9BB2-A18BC220168A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77789BE8-D49F-4075-B6F1-7373E3D6D60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77789BE8-D49F-4075-B6F1-7373E3D6D60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77789BE8-D49F-4075-B6F1-7373E3D6D60B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{77789BE8-D49F-4075-B6F1-7373E3D6D60B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

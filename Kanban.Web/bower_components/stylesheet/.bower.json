@@ -1,0 +1,34 @@
+{
+  "name": "stylesheet",
+  "homepage": "https://github.com/codenameyau/stylesheet",
+  "authors": [
+    "Jorge Yau <jyau01@citymail.cuny.edu>"
+  ],
+  "description": "Create sylesheets with JavaScript",
+  "main": "src/stylesheet.js",
+  "keywords": [
+    "css",
+    "stylesheet",
+    "js",
+    "dynamic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "*.md"
+  ],
+  "_release": "c6c74d54a6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c6c74d54a6cef95afbfc081418f66e9563e31f89"
+  },
+  "_source": "git://github.com/codenameyau/stylesheet.git",
+  "_target": "*",
+  "_originalSource": "stylesheet",
+  "_direct": true
+}

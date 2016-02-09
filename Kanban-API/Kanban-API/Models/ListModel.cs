@@ -5,19 +5,10 @@ using System.Web;
 
 namespace Kanban_API.Models
 {
-    public class ListModel
+    public class ListsModel
     {
-        public int ListId { get; set; }
+        public int ListID { get; set; }
         public string Name { get; set; }
         public System.DateTime CreatedDate { get; set; }
-
-        public string CardsUrl
-        {
-            get
-            {
-                return $"http://localhost:52991/api/lists/{ListId}/cards";
-            }
-
-        }
     }
 }

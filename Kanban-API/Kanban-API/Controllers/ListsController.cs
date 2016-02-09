@@ -19,26 +19,13 @@ namespace Kanban_API.Controllers
         private KanbanEntities db = new KanbanEntities();
 
         // GET: api/Lists
-        public IEnumerable<ListModel> GetLists()
+        public IEnumerable<ListsModel> GetLists()
         {
-                return Mapper.Map<IEnumerable<ListModel>>(db.Lists);
-                //ListId = g.ListId,
-                //Name = g.Name,
-                //CreatedDate = g.CreatedDate
-            //});
-        }
-
-        //GET: api/Lists/5/Cards
-        [Route("api/lists/{listId}/cards")]
-        public IEnumerable<CardModel> GetCardsForList(int listId)
-        {
-            var cards = db.Cards.Where(c => c.ListId == listId);
-
-            return Mapper.Map<IEnumerable<CardModel>>(cards);
+            return Mapper.Map<IEnumerable<ListsModel>>(db.Lists);
         }
 
         // GET: api/Lists/5
-        [ResponseType(typeof(ListModel))]
+        [ResponseType(typeof(ListsModel))]
         public IHttpActionResult GetList(int id)
         {
             List list = db.Lists.Find(id);
@@ -47,35 +34,35 @@ namespace Kanban_API.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<ListModel>(list));
+            return Ok(Mapper.Map<ListsModel>(list));
+        }
+
+        // GET: api/Lists/5/Cards
+        [Route("api/lists/{listId}/cards")]
+        public IEnumerable<CardsModel> GetCardsForList(int listId)
+        {
+            var cards = db.Cards.Where(m => m.ListId == listId);
+            return Mapper.Map<IEnumerable<CardsModel>>(cards);
         }
 
         // PUT: api/Lists/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutList(int id, ListModel list)
+        public IHttpActionResult PutList(int id, ListsModel list)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != list.ListId)
+            if (id != list.ListID)
             {
                 return BadRequest();
             }
-
-
-            #region Thing to Change
-
+            //
             var dbList = db.Lists.Find(id);
-
             dbList.Update(list);
-
-
-
             db.Entry(dbList).State = EntityState.Modified;
 
-            #endregion 
             try
             {
                 db.SaveChanges();
@@ -96,31 +83,27 @@ namespace Kanban_API.Controllers
         }
 
         // POST: api/Lists
-        [ResponseType(typeof(ListModel))]
-        public IHttpActionResult PostList(ListModel list)
+        [ResponseType(typeof(ListsModel))]
+        public IHttpActionResult PostList(ListsModel list)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbList = new List(list);
+            var addlist = new List(list);
 
-
-
-            db.Lists.Add(dbList);
+            db.Lists.Add(addlist);
             db.SaveChanges();
 
+            list.ListID = addlist.ListId;
+            list.CreatedDate = addlist.CreatedDate;
 
-            list.CreatedDate = dbList.CreatedDate;
-            list.ListId = dbList.ListId;
-
-
-            return CreatedAtRoute("DefaultApi", new { id = dbList.ListId }, list);
+            return CreatedAtRoute("DefaultApi", new { id = list.ListID }, list);
         }
 
         // DELETE: api/Lists/5
-        [ResponseType(typeof(ListModel))]
+        [ResponseType(typeof(ListsModel))]
         public IHttpActionResult DeleteList(int id)
         {
             List list = db.Lists.Find(id);
@@ -129,10 +112,16 @@ namespace Kanban_API.Controllers
                 return NotFound();
             }
 
+            var cards = db.Cards.Where(u => u.ListId == list.ListId);
+            foreach (var u in cards)
+            {
+                db.Cards.Remove(u);
+            }
+
             db.Lists.Remove(list);
             db.SaveChanges();
 
-            return Ok(Mapper.Map<ListModel>(list));
+            return Ok(Mapper.Map<ListsModel>(list));
         }
 
         protected override void Dispose(bool disposing)

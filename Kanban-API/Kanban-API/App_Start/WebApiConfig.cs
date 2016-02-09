@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Kanban_API
 {
@@ -12,6 +13,8 @@ namespace Kanban_API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            var rules = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(rules);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -22,8 +25,6 @@ namespace Kanban_API
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            //SET API to return JSON instead of XML
-            //
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
@@ -32,8 +33,9 @@ namespace Kanban_API
 
         private static void CreateMaps()
         {
-            Mapper.CreateMap<List, ListModel>();
-            Mapper.CreateMap<Card, CardModel>();
+            Mapper.CreateMap<List, ListsModel>();
+            Mapper.CreateMap<Card, CardsModel>();
+     
         }
     }
 }

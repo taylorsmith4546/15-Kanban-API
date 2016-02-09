@@ -19,13 +19,13 @@ namespace Kanban_API.Controllers
         private KanbanEntities db = new KanbanEntities();
 
         // GET: api/Cards
-        public IEnumerable<CardModel> GetCards()
+        public IEnumerable<CardsModel> GetCards()
         {
-            return Mapper.Map<IEnumerable<CardModel>>(db.Cards);
+            return Mapper.Map<IEnumerable<CardsModel>>(db.Cards);
         }
 
         // GET: api/Cards/5
-        [ResponseType(typeof(CardModel))]
+        [ResponseType(typeof(CardsModel))]
         public IHttpActionResult GetCard(int id)
         {
             Card card = db.Cards.Find(id);
@@ -34,29 +34,27 @@ namespace Kanban_API.Controllers
                 return NotFound();
             }
 
-            return Ok(Mapper.Map<CardModel>(card));
+            return Ok(Mapper.Map<CardsModel>(card));
         }
 
         // PUT: api/Cards/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCard(int id, CardModel card)
+        public IHttpActionResult PutCard(int id, CardsModel card)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != card.CardId)
+            if (id != card.CardID)
             {
                 return BadRequest();
             }
 
-            #region Thing to change
             var dbCard = db.Cards.Find(id);
-
             dbCard.Update(card);
+
             db.Entry(dbCard).State = EntityState.Modified;
-            #endregion
 
             try
             {
@@ -76,28 +74,29 @@ namespace Kanban_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
         // POST: api/Cards
-        [ResponseType(typeof(CardModel))]
-        public IHttpActionResult PostCard(CardModel card)
+        [ResponseType(typeof(CardsModel))]
+        public IHttpActionResult PostCard(CardsModel card)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbCard = new Card(card);
+            var addcard = new Card(card);
 
-            db.Cards.Add(dbCard);
+            db.Cards.Add(addcard);
             db.SaveChanges();
 
-            card.CardId = dbCard.CardId;
-            card.CreatedDate = dbCard.CreatedDate;
+            card.CardID = addcard.CardId;
+            card.CreatedDate = addcard.CreatedDate;
 
-            return CreatedAtRoute("DefaultApi", new { id = card.CardId }, card);
+            return CreatedAtRoute("DefaultApi", new { id = addcard.CardId }, card);
         }
 
         // DELETE: api/Cards/5
-        [ResponseType(typeof(CardModel))]
+        [ResponseType(typeof(CardsModel))]
         public IHttpActionResult DeleteCard(int id)
         {
             Card card = db.Cards.Find(id);
@@ -109,7 +108,7 @@ namespace Kanban_API.Controllers
             db.Cards.Remove(card);
             db.SaveChanges();
 
-            return Ok(Mapper.Map<CardModel>(card));
+            return Ok(Mapper.Map<CardsModel>(card));
         }
 
         protected override void Dispose(bool disposing)
